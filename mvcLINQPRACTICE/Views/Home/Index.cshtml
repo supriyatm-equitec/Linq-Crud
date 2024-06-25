@@ -1,0 +1,75 @@
+﻿@model mvcLINQPRACTICE.Models.employee
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Employee Details</h2>
+<hr />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4 mt-5">
+            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "border rounded p-4 bg-light" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.Label("Name", htmlAttributes: new { @class = "control-label mb-2" })
+                            @Html.EditorFor(model => model.E_Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.E_Name, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Gender", htmlAttributes: new { @class = "control-label mt-2" })
+                            <div class="d-flex">
+                                <div class="me-2">
+                                    @Html.RadioButton("Gender", "Female") @Html.Label("Female", new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="me-2"> 
+                                    @Html.RadioButton("Gender", "Male", new { htmlAttributes = new { @class = "form-control" } }) @Html.Label("Male")
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Mobile_no, htmlAttributes: new { @class = "control-label mt-3" })
+                            @Html.EditorFor(model => model.Mobile_no, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Mobile_no, "", new { @class = "text-danger mt-3" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mt-3">
+                    <div class="d-flex">
+                        <input type="submit" value="Insert" class="btn btn-success" />
+                        <div class="ms-3 btn btn-info">
+                            @Html.ActionLink("Back to List", "Show", null, new { @class = "text-white" })
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

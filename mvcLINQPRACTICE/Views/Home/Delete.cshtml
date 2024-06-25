@@ -1,0 +1,76 @@
+﻿@model mvcLINQPRACTICE.Models.employee
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+
+<div>
+    <h4>employee</h4>
+    <hr />
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 mt-5  bg-light">
+
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.E_Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.E_Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Gender)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Gender)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mobile_no)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Mobile_no)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Age)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Age)
+                    </dd>
+
+                </dl>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group mt-3">
+                        <div class="d-flex">
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+                            <div class="ms-3 btn btn-info">
+                                @Html.ActionLink("Back to List", "Show", null, new { @class = "text-white" })
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

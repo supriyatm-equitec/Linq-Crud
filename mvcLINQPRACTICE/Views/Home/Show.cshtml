@@ -1,0 +1,133 @@
+﻿@model PagedList.IPagedList<mvcLINQPRACTICE.Models.employee>
+
+@using PagedList.Mvc;
+
+
+
+
+
+
+
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            @using (Html.BeginForm("ExportToExcel", "Home", FormMethod.Post))
+            {
+                <div class="form-horizontal">
+                    <input type="submit" value="Export to Excel" class="btn btn-dark" />
+                    <button class="btn btn-primary" id="print">Print</button>
+                </div>
+
+
+            }
+        </div>
+
+
+        @*//filtering*@
+        <!-- Add a form for searching -->
+        <div class="col-md-8">
+            <form method="get" action="@Url.Action("Show")" id="formid">
+                <div>
+
+                    @Html.DropDownList("pageSize", new SelectList(new List<SelectListItem>
+       {
+           new SelectListItem{Text="5", Value="5"},
+           new SelectListItem{Text="10", Value="10"},
+           new SelectListItem{Text="15", Value="15"},
+           new SelectListItem{Text="All", Value="0"},
+       }, "Value", "Text", ViewBag.PageSize), new { onchange = "this.form.submit();" })
+                    Search: <input type="text" name="searchString" value="@ViewBag.CurrentFilter" new{onchange="this.form.submit();" } />
+                    <input type="submit" class="btn btn-secondary" value="Search" />
+                </div>
+
+            </form>
+                </div>
+
+            </div>
+        </div>
+ 
+
+
+
+
+<p class="mt-2">
+    @Html.ActionLink("Add New", "Index", null, new { @class = "btn btn-info text-white" })
+
+</p>
+<table class="table table-striped">
+    <tr>
+        <th>
+            <a href="@Url.Action("Show", new { sortOrder = ViewBag.NameSortParm, searchString = ViewBag.CurrentFilter })">Employee Name</a>
+        </th>
+        <th>
+            <a href="@Url.Action("Show", new { sortOrder = ViewBag.GenderSortParm, searchString = ViewBag.CurrentFilter })">Gender</a>
+        </th>
+        <th>
+            <a href="@Url.Action("Show", new { sortOrder = ViewBag.MobileSortParm, searchString = ViewBag.CurrentFilter })">Mobile Number</a>
+        </th>
+        <th>
+            <a href="@Url.Action("Show", new { sortOrder = ViewBag.EmailSortParm, searchString = ViewBag.CurrentFilter })">Email</a>
+        </th>
+        <th>
+            <a href="@Url.Action("Show", new { sortOrder = ViewBag.AgeSortParm, searchString = ViewBag.CurrentFilter })">Age</a>
+        </th>
+        <th class="text-primary">Operation</th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.E_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mobile_no)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                <div class="btn btn-warning">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }, new {@class="text-white"} ) 
+
+                </div>
+                <div class="btn btn-primary">
+                    @Html.ActionLink("Details", "Details", new { id = item.id }, new { @class = "text-white" })
+                </div>
+                <div class="btn btn-danger">
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id }, new {@class="text-white"})
+                </div>
+            </td>
+        </tr>
+    }
+</table>
+
+<!-- Pagination -->
+<div class="pagination-container">
+    @Html.PagedListPager(Model, page => Url.Action("Show", new { page, sortOrder = ViewBag.CurrentSort, searchString = ViewBag.CurrentFilter,pageSize=ViewBag.PageSize.SelectedValue }))
+</div>
+
+
+
+
+
+<script>
+
+    document.getElementById("print").addEventListener("click", function () {
+        window.print();
+
+
+
+    })
+</script>
+
